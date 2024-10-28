@@ -66,7 +66,11 @@ export default function Borrow() {
                 
 
                 <div className="flex flex-col gap-3 border-dashed border border-blue-500 p-4 rounded-md">
+<<<<<<< HEAD
                 <p className="text-gray-800">Interest rate for ... days</p>
+=======
+                <p className="text-gray-800">Interest rate for... days</p>
+>>>>>>> test
                 <p className="text-6xl text-blue-600">{rate}%</p>
                 </div>
                 
