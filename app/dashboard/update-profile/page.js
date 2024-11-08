@@ -78,11 +78,7 @@ export default function updateProfile() {
                     rows={4}
                     type="text"
                     id="address"
-<<<<<<< HEAD
-                    label="last name"
-=======
                     label="address"
->>>>>>> test
                     variant="outlined"
                     value={values.address}
                     onChange={handleChange}
