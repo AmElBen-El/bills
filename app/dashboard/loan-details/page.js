@@ -1,7 +1,7 @@
 "use client"
 import React from "react";
 import { useSearchParams } from "next/navigation";
-import { db } from "@/config/firebase.config";
+import { db } from "@/config/google_firebase.config";
 import { Skeleton } from "@mui/material";
 import { getDoc } from "firebase/firestore";
 import { useFormik } from "formik";

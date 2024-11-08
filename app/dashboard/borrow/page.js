@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect} from "react";
 import {TextField } from "@mui/material";
-import { db } from "@/config/firebase.config";
+import { db } from "@/config/google_firebase.config";
 import { addDoc,collection } from "firebase/firestore";
 import { CircularProgress } from "@mui/material";
 import { useFormik} from "formik";
