@@ -1,26 +1,27 @@
 "use client"
 import React from "react";
+import { AppContext } from "@/config/context.config";
 import { useSearchParams } from "next/navigation";
 import { db } from "@/config/google_firebase.config";
 import { Skeleton } from "@mui/material";
-import { getDoc } from "firebase/firestore";
+import { doc,getDoc } from "firebase/firestore";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import {TextField,Button} from "@mui/material";
+
 
 const schema = yup.object().shape({
     amount: yup.number().required().min(1)
 });
 
 export default function History () {
+    const {loanDocId}= React.useContext(AppContext)
     const [loan,setLoan] = React.useState(null);
-    const [totalOffset,setTotalOffset] = React.useState(null);
-
-    const docId = useSearchParams().get("doc_id")
+    const [totalOffset,setTotalOffset] = React.useState(0);
 
     React.useEffect(()=> {
     const handleDocFetch = async () => {
-        const docRef = doc(db, "loan", docId);
+        const docRef = doc(db, "loans", loanDocId);
         const res = await getDoc(docRef);
 
         if (res.exists()){
@@ -30,7 +31,7 @@ export default function History () {
         }
     };  
 
-    // call the function to execute
+    //call the function to execute
     handleDocFetch()       
     },[]);
 
@@ -76,7 +77,7 @@ export default function History () {
 
                 <form 
                 onSubmit={handleSubmit} 
-                style={{display:totalOffsets>= loan.amount ? "none" : "block"}}
+                style={{display:totalOffset>= loan.amount ? "none" : "block"}}
                 className="bg-gray-200 p-4 rounded-md">
                     <div className="flex flex-col gap-1 mb-2">
                         <label className="text-xs text-gray-700">Offset this loan</label>
