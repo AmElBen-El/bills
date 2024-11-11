@@ -1,14 +1,13 @@
 "use client"
+import { useRouter } from "next/navigation";
 import React from "react";
 import { AppContext } from "@/config/context.config";
-import { useSearchParams } from "next/navigation";
 import { db } from "@/config/google_firebase.config";
 import { Skeleton } from "@mui/material";
 import { doc,getDoc } from "firebase/firestore";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import {TextField,Button} from "@mui/material";
-
 
 const schema = yup.object().shape({
     amount: yup.number().required().min(1)
@@ -19,6 +18,15 @@ export default function History () {
     const [loan,setLoan] = React.useState(null);
     const [totalOffset,setTotalOffset] = React.useState(0);
 
+    const router = useRouter();
+
+   React.useEffect(()=>{
+    if(loanDocId===null) {
+        router.push("/dashboard/history")
+    }
+
+   })
+   
     React.useEffect(()=> {
     const handleDocFetch = async () => {
         const docRef = doc(db, "loans", loanDocId);
