@@ -1,22 +1,16 @@
-"use client"
-import React from "react";
+"use server"
 import Link from "next/link";
-import {FaGoogle} from "react-icons/fa";
-import {FaApple, FaXTwitter} from "react-icons/fa6";
-import { signIn,useSession,signOut } from "next-auth/react";
-import { Button } from "@mui/material";
-import { useRouter } from "next/navigation";
+import { auth,signIn } from "@/auth";
+import { FaGoogle } from "react-icons/fa";
+import {FaXTwitter} from "react-icons/fa6";
+import { redirect } from "next/navigation";
 
+export default async function Auth (){
+    const session = await auth();
 
-export default function Auth (){
-const {data:session} =useSession();
-const router =useRouter();
-
-React.useEffect(()=> {
-    if (session?.user){
-        router.push("/dashboard/borrow")
+    if (session) {
+        redirect("/dashboard/borrow")        
     }
-},[session])
 
     return (
         <main className="min-h-[520px] flex justify-center bg-gradient-to-b from-gray-50 to-gray-300 py-8 px-2">
@@ -26,8 +20,9 @@ React.useEffect(()=> {
                     <p className="text-sm text-gray-600 mb-4">Sign up using ...</p>
 
                     <form
-                    action={ () => {
-                        signIn("google")
+                    action={async () => {
+                        "use server"
+                        await signIn("google")
                     }}
                      className="mb-4">
                         <button type="submit" className="w-full h-[3.2em] flex justify-center items-center gap-2 border-b-2 border-red-500 bg-black rounded-md">
@@ -36,8 +31,9 @@ React.useEffect(()=> {
                         </button>
                     </form>
                     <form 
-                    action={ () =>{
-                        signIn("twitter")
+                    action={async () =>{
+                        "use server"
+                        await signIn("twitter")
                     }}
                     className="mb-4">
                         <button type="submit" className="w-full h-[3.2em] flex justify-center items-center gap-2 border-b-2 border-gray-500 bg-black rounded-md">

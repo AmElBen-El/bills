@@ -1,15 +1,20 @@
 "use client"
 import React from "react";
 import { db } from "@/config/google_firebase.config";
-import { getDocs,collection,orderBy } from "firebase/firestore";
+import { getDocs,collection,orderBy,where } from "firebase/firestore";
 import { HistoryTab } from "@/components/HistoryTab";
+import { useSession } from "next-auth/react";
 
 export default function History () {
     const [loans,setLoans] = React.useState([]);
+    const {data:session} = useSession();
     React.useEffect(()=> {
         const handleFetchLoans = async () => {
             const q =collection(db, "loans");
-            const onSnap = await getDocs(q);
+            const onSnap = await getDocs(q,
+                where("user","==",session?.user?.id),
+                orderBy("timecreated","desc")
+            );
 
             const compileResults = [];
 
@@ -22,8 +27,8 @@ export default function History () {
             })
         }
 
-        handleFetchLoans()
-    },[]);
+       session ? handleFetchLoans() : null;
+    },[session]);
     
    return (
     <main className="min-h-screen flex justify-center items-center bg-gradient-to-b from-sky-100 via-sky-200 to-blue-300">
@@ -35,7 +40,7 @@ export default function History () {
                 amount={loan.data.amount} 
                 rate={loan.data.rate} 
                 duration={loan.data.duration} 
-                date={"13 JULY 2024"} 
+                timestamp={loan.data.timecreated}
                 type={"personal"}
                 key={loan.id}/>)} 
             </div>

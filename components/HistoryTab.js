@@ -2,9 +2,10 @@
 import { useContext } from "react";
 import { AppContext } from "@/config/context.config";
 import { useRouter } from "next/navigation";
+import { timestampToDate } from "./utils/timestampToDate";
 
 
-export function HistoryTab({docId,amount, rate,duration,date,type}) {
+export function HistoryTab({docId,amount, rate, timestamp, duration,type}) {
     const { setLoanDocId } = useContext(AppContext);
     const router = useRouter();
 
@@ -23,7 +24,7 @@ export function HistoryTab({docId,amount, rate,duration,date,type}) {
 
                     <ul className="flex justify-between items-center pt-2">
                         <li className="text-sm text-gray-700">{duration}</li>
-                        <li className="text-sm text-gray-700">{date}</li>
+                        <li className="text-sm text-gray-700">{timestampToDate(timestamp)}</li>
                         <li className="text-sm text-gray-700">{type}</li>
                     </ul>
                 </div>
