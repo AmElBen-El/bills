@@ -8,19 +8,19 @@ const schema = yup.object().shape({
     firstName: yup.string().required().min(3),
     lastName: yup.string().required().min(3),
     phone: yup.string().required().min(11).max(17),
-    address: yup.string().required().min(12).max(300)
-   
+    address: yup.string().required().min(12).max(300)   
 });
+
 export default function updateProfile() {
 
     const { handleSubmit,handleChange,handleBlur,errors,touched,values} = useFormik({
         initialValues: {firstName:"",lastName:"",phone:"",address:""},
-        onSubmit:() => {},
+        onSubmit:() => {
+            console.log("form was submitted");
+        },
         validationSchema:schema
     })
-
      
-
     return (
         <main className="min-h-screen flex justify-center px-2 md:px-16 lg:px-20 py-16 bg-gray-200">
            <div className="w-full md:w-[400px] p-4 rounded bg-gray-50">
@@ -67,7 +67,7 @@ export default function updateProfile() {
                     value={values.phone}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    placeholder="eg. Ademola"
+                    placeholder="12333"
                     className="w-full"/>
                     {touched.phone && errors.phone ? <span className="text-xs text-red-500">{errors.phone}</span> : null}
 
@@ -90,7 +90,6 @@ export default function updateProfile() {
                 </div>
                 <Button type="submit" variant="contained">Update</Button>
             </form>
-
 
            </div>
         </main>

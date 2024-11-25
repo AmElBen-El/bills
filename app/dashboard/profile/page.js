@@ -1,4 +1,4 @@
-"use server"
+//"use server"
 import Link  from "next/link";
 import { redirect } from "next/navigation";
 import Image from "next/image";
@@ -24,7 +24,7 @@ export  default async function Profile(){
                 </div>
                  <p className=" py-3 border-b border-sky-200">{session?.user?.name}</p>
                  <p className=" py-3 border-b border-sky-200">{session?.user?.email}</p>
-                 <p className=" py-3 border-b border-sky-200">{session?.user?.id}</p>
+                 <p className=" py-3 border-b border-sky-200">Customer ID: {session?.user?.id}</p>
 
                 <form action={async () =>{
                     "use server"
@@ -34,14 +34,12 @@ export  default async function Profile(){
                 <Button variant="contained" color="error" type="submit">Log out</Button>
                 </form>
                  
-                 <Link className="p-2 bg-blue-700 rounded-md text-xl text-white " href="/dashboard/update-profile">
+                 <Link className="p-2 bg-blue-700 rounded-md text-xl text-white " 
+                 href="/dashboard/update-profile">
                  Update profile
                  </Link>
-
-
             </div>
         </main>
-        </>
-   
+        </>   
     )
 }

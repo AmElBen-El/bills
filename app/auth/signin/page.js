@@ -1,9 +1,9 @@
-"use server"
+//"use server"
+import { redirect } from "next/navigation";
 import Link from "next/link";
 import { auth,signIn } from "@/auth";
 import { FaGoogle } from "react-icons/fa";
 import {FaXTwitter} from "react-icons/fa6";
-import { redirect } from "next/navigation";
 
 export default async function Auth (){
     const session = await auth();
@@ -31,11 +31,12 @@ export default async function Auth (){
                         </button>
                     </form>
                     <form 
-                    action={async () =>{
-                        "use server"
-                        await signIn("twitter")
-                    }}
+                   //</div> action={async () =>{
+                   //     "use server"
+                    //    await signIn("twitter")
+                    //}}
                     className="mb-4">
+                        {/** <Button></Button> */}
                         <button type="submit" className="w-full h-[3.2em] flex justify-center items-center gap-2 border-b-2 border-gray-500 bg-black rounded-md">
                             <FaXTwitter className="text-white text-2xl"/>
                             <span className="text-white text-lg">Twitter account</span>

@@ -29,9 +29,8 @@ export function Borrow({userId}) {
         },      
         onSubmit: async()=>{
             setOpsProgress(true);
-
             await addDoc(collection(db, "loans"), {
-                user:session?.user?.id,
+                user:userId,
                 amount:values.amount,
                 payback:payback,
                 rate:rate,
@@ -50,10 +49,8 @@ export function Borrow({userId}) {
 
         }, 
         validationSchema:schema
-
     })
    
-  
     useEffect(()=> {
         if (values.amount >= 1){
         const interest = (rate * values.amount)/100;
@@ -68,7 +65,7 @@ export function Borrow({userId}) {
                     <span className="font-thin text-lg text-blue-800">Get an Instant Loan</span>
                 </blockquote>
 
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                     <div className="flex flex-col gap-1">
                         <TextField
                         id="amount"
@@ -76,7 +73,8 @@ export function Borrow({userId}) {
                         variant="outlined"
                         placeholder="loan amount"
                         value={values.amount}
-                        onChange={handleChange}/>
+                        onChange={handleChange}
+                        />
                         {touched.amount && errors.amount ? <span className="text-xs text-red-500">{errors.amount} </span> :null}
                     </div>
 
@@ -112,22 +110,22 @@ export function Borrow({userId}) {
 
                 </div >
 
-                    <div className=" flex item-center gap-1 mt-1">
+                <div className="flex flex-col gap-3 border-dashed border border-blue-500 p-4 rounded-md">
+                    <p className="text-gray-800">Interest rate for {days} days</p>
+                    <p className="text-6xl text-blue-600">{rate}%</p>
+                </div>
+                    
+                <div className="flex flex-col gap-3 bg-gradient-to-b from-blue-600 to-blue-800 border-dashed border border-blue-500 p-4 rounded-md">
+                    <p className="text-blue-50">You will payback</p>
+                    <p className="text-4xl text-white">₦{payback}</p>
+                </div>                
+                <div className=" flex item-center gap-1 mt-1">
                     <button type="submit" className="p-2 rounded-md bg-blue-600 text-white text-xl uppercase">Get Loan</button>
                     <CircularProgress style={{display:!opsProgress ? "none" : "flex"}} />
                 </div>
                 </form>
                
           
-                <div className="flex flex-col gap-3 border-dashed border border-blue-500 p-4 rounded-md">
-                <p className="text-gray-800">Interest rate for {days} days</p>
-                <p className="text-6xl text-blue-600">{rate}%</p>
-                </div>
-                
-                <div className="flex flex-col gap-3 bg-gradient-to-b from-blue-600 to-blue-800 border-dashed border border-blue-500 p-4 rounded-md">
-                <p className="text-blue-50">You will payback</p>
-                <p className="text-4xl text-white">₦{payback}</p>
-                </div>                
             </div>
         </main>
     )

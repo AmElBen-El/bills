@@ -4,7 +4,6 @@ import { AppContext } from "@/config/context.config";
 import { useRouter } from "next/navigation";
 import { timestampToDate } from "./utils/timestampToDate";
 
-
 export function HistoryTab({docId,amount, rate, timestamp, duration,type}) {
     const { setLoanDocId } = useContext(AppContext);
     const router = useRouter();

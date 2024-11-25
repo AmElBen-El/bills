@@ -7,7 +7,7 @@ export default function Dashboard () {
             <p>Propose a UI design</p>
             <p>Build the UI</p>
             <p>Propose possiblle changes</p>
-            <image width={480} height={240} src="/coins.jpeg" />
+            <img width={480} height={240} src="/coins.jpeg"/>
         </main>
     )
 }
